@@ -18,7 +18,9 @@ public final class Main {
         run(service, new TransferSpec<>(orders, archive));
         System.out.println("  archive: " + archive.snapshot());
 
-        run(service, new TransferSpec<>(orders, new FailingTarget<>("warehouse", 2)));
+        InMemoryStore<String> warehouse = new InMemoryStore<>("warehouse", List.of());
+        run(service, new TransferSpec<>(orders, new FailingTarget<>(warehouse, 2)));
+        System.out.println("  warehouse: " + warehouse.snapshot());
     }
 
     private static void run(TransferService service, TransferSpec<?> transferSpec) {
