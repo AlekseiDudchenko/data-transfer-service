@@ -13,8 +13,8 @@ mvn clean test exec:java
 The demo prints:
 
 ```text
-orders -> archive: 3 elements
-  archive: [order-1, order-2, order-3]
+orders -> archive: 4 elements
+  archive: [order-1, order-2, order-3, order-4]
 Transfer from 'orders' to 'warehouse' failed, elements written: 2
   cause: Target 'warehouse' is unavailable
   warehouse: [order-1, order-2]

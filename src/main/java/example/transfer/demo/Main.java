@@ -12,18 +12,18 @@ public final class Main {
 
     public static void main(String[] args) {
         TransferService service = new TransferService();
-        InMemoryStore<String> orders = new InMemoryStore<>("orders", List.of("order-1", "order-2", "order-3"));
+        InMemoryStore<String> orders = new InMemoryStore<>("orders", List.of("order-1", "order-2", "order-3", "order-4"));
 
         InMemoryStore<String> archive = new InMemoryStore<>("archive", List.of());
-        run(service, new TransferSpec<>(orders, archive));
+        executeAndPrint(service, new TransferSpec<>(orders, archive));
         System.out.println("  archive: " + archive.snapshot());
 
         InMemoryStore<String> warehouse = new InMemoryStore<>("warehouse", List.of());
-        run(service, new TransferSpec<>(orders, new FailingTarget<>(warehouse, 2)));
+        executeAndPrint(service, new TransferSpec<>(orders, new FailingTarget<>(warehouse, 2)));
         System.out.println("  warehouse: " + warehouse.snapshot());
     }
 
-    private static void run(TransferService service, TransferSpec<?> transferSpec) {
+    private static void executeAndPrint(TransferService service, TransferSpec<?> transferSpec) {
         try {
             long count = service.execute(transferSpec);
             System.out.println(transferSpec.source().name() + " -> " + transferSpec.target().name()
